@@ -11,11 +11,11 @@ with col_img:
     image = Image.open("detailed-analysis@2x.png")
     st.image(image, width=100)
 with col_txt:
-    st.title("Real-time Insights for Github")
+    st.title("Real-time Insights for Stocks")
 with col_link:
     st.markdown("[Source Code](https://github.com/timeplus-io/streamlit_apps/blob/main/pages/200_%F0%9F%92%BB_github_liveview.py)", unsafe_allow_html=True)
     
-env = Environment().address(st.secrets["TIMEPLUS_HOST"]).apikey(st.secrets["TIMEPLUS_API_KEY"]).workspace(st.secrets["TIMEPLUS_TENANT"])    
+env = Environment().address(st.secrets["STOCKADDRESS"]).apikey(st.secrets["STOCKAPI"]).workspace(st.secrets["STOCKWOKSPACE"])    
 
 MAX_ROW=10
 st.session_state.rows=0
