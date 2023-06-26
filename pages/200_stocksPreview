@@ -11,12 +11,9 @@ with col_img:
     image = Image.open("detailed-analysis@2x.png")
     st.image(image, width=100)
 with col_txt:
-    st.title("Real-time Insights on Stocks via Confluent Cloud")
-with col_link:
-    st.markdown("[Source Code](https://github.com/timeplus-io/streamlit_apps/blob/main/pages/200_%F0%9F%92%BB_github_liveview.py)", unsafe_allow_html=True)
-    
+    st.title("Real-time Insights on Stocks via Confluent Cloud")  
 env = Environment().address(st.secrets["pkc-ymrq7.us-east-2.aws.confluent.cloud:9092"]).apikey(st.secrets["II3EDCRT7EV5YJUL"]).workspace(st.secrets["st3o6qm2"])    
-
+a
 MAX_ROW=10
 st.session_state.rows=0
 sql='SELECT _tp_time,symbol, userid, quantity, price, side FROM stocksEsha order by 1,3,2'
