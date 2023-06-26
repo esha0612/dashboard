@@ -11,12 +11,15 @@ with col_img:
     image = Image.open("detailed-analysis@2x.png")
     st.image(image, width=100)
 with col_txt:
-    st.title("Real-time Insights on Stocks via Confluent Cloud")  
-env = Environment().address(st.secrets["https://github.com/esha0612/dashboard/blob/b17dd9f36478f398e5cce6185ad4c6aaf6994245/pages/200_stocksPreview.py"]).apikey(st.secrets["1Y1026s3LeRR+J6+xh9i6SaHw85cigV8HldGGnjdVzw"]).workspace(st.secrets["dashboard"])    
-a
+    st.title("Real-time Insights for Github")
+with col_link:
+    st.markdown("[Source Code](https://github.com/timeplus-io/streamlit_apps/blob/main/pages/200_%F0%9F%92%BB_github_liveview.py)", unsafe_allow_html=True)
+    
+env = Environment().address(st.secrets["TIMEPLUS_HOST"]).apikey(st.secrets["TIMEPLUS_API_KEY"]).workspace(st.secrets["TIMEPLUS_TENANT"])    
+
 MAX_ROW=10
 st.session_state.rows=0
-sql='SELECT _tp_time,symbol, userid, quantity, price, side FROM stocksEsha order by 1,3,2'
+sql='SELECT created_at,actor,type,repo FROM github_events'
 st.code(sql, language="sql")
 with st.empty():
     query = Query(env=env).sql(query=sql).create()
