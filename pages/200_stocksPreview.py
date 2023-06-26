@@ -12,7 +12,7 @@ with col_img:
     st.image(image, width=100)
 with col_txt:
     st.title("Real-time Insights on Stocks via Confluent Cloud")  
-env = Environment().address(st.secrets["pkc-ymrq7.us-east-2.aws.confluent.cloud:9092"]).apikey(st.secrets["1Y1026s3LeRR+J6+xh9i6SaHw85cigV8HldGGnjdVzw"]).workspace(st.secrets["dashboard"])    
+env = Environment().address(st.secrets["https://github.com/esha0612/dashboard/blob/b17dd9f36478f398e5cce6185ad4c6aaf6994245/pages/200_stocksPreview.py"]).apikey(st.secrets["1Y1026s3LeRR+J6+xh9i6SaHw85cigV8HldGGnjdVzw"]).workspace(st.secrets["dashboard"])    
 a
 MAX_ROW=10
 st.session_state.rows=0
