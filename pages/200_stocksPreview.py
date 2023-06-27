@@ -13,7 +13,7 @@ with col_img:
 with col_txt:
     st.title("Real-time Insights for Stocks via Confluent Cloud")
 with col_link:
-    st.markdown("[Source Code](https://github.com/timeplus-io/streamlit_apps/blob/main/pages/200_%F0%9F%92%BB_github_liveview.py)", unsafe_allow_html=True)
+    st.markdown("[Source Code](https://https://github.com/esha0612/dashboard/edit/203dashboard/pages/200_stocksPreview.py)", unsafe_allow_html=True)
     
 env = Environment().address(st.secrets["pkc-ymrq7.us-east-2.aws.confluent.cloud:9092"]).apikey(st.secrets["5xdHysaYvVP2y69ad6AQ2ViIgIQtuarD7n-ONpTcOZ6jKE1A9LPbIjQOtoO2"]).workspace(st.secrets["st3o6qm2"])    
 
