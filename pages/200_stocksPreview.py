@@ -6,7 +6,7 @@ from timeplus import *
 import json
 
 st.set_page_config(layout="wide")
-col_img, col_txt, col_link = st.columns([1,9,5])
+col_img, col_txt, col_link = st.columns([1,9,7])
 with col_img:
     image = Image.open("detailed-analysis@2x.png")
     st.image(image, width=100)
