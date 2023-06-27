@@ -15,7 +15,7 @@ with col_txt:
 with col_link:
     st.markdown("[Source Code](https://github.com/timeplus-io/streamlit_apps/blob/main/pages/200_%F0%9F%92%BB_github_liveview.py)", unsafe_allow_html=True)
     
-env = Environment().address(st.secrets["Test1"]).apikey(st.secrets["5xdHysaYvVP2y69ad6AQ2ViIgIQtuarD7n-ONpTcOZ6jKE1A9LPbIjQOtoO2"]).workspace(st.secrets["st3o6qm2"])    
+env = Environment().address(st.secrets["https://esha-stocks.streamlit.app/"]).apikey(st.secrets["5xdHysaYvVP2y69ad6AQ2ViIgIQtuarD7n-ONpTcOZ6jKE1A9LPbIjQOtoO2"]).workspace(st.secrets["st3o6qm2"])    
 
 MAX_ROW=10
 st.session_state.rows=0
