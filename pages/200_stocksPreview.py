@@ -15,11 +15,11 @@ with col_txt:
 with col_link:
     st.markdown("[Source Code](https://github.com/esha0612/dashboard/edit/203dashboard/pages/200_stocksPreview.py)", unsafe_allow_html=True)
     
-env = Environment().address(st.secrets["TIMEPLUS_STOCKS"]).apikey(st.secrets["aV9q9Fz6uMhBK9TaGoh9iFdvowFnlVa3gavnoK8vEiSvKS1kHTo4YkxMDc2G"]).workspace(st.secrets["st3o6qm2"])    
+env = Environment().address("https://us.timeplus.cloud").apikey("aV9q9Fz6uMhBK9TaGoh9iFdvowFnlVa3gavnoK8vEiSvKS1kHTo4YkxMDc2G").workspace("st3o6qm2")    
 
 MAX_ROW=10
 st.session_state.rows=0
-sql='SELECT _tp_time,symbol, userid, quantity, price, side FROM stocksEsha order by 1,3,2'
+sql='SELECT _tp_time,symbol, userid, quantity, price, side FROM stocksEsha'
 st.code(sql, language="sql")
 with st.empty():
     query = Query(env=env).sql(query=sql).create()
@@ -28,13 +28,7 @@ with st.empty():
         data = {}
         for i, f in enumerate(col):
             data[f] = row[i]
-            #hack show first column as more friendly datetime diff
-            if i==0 and isinstance(row[i], str):
-                data[f]=datetime.datetime.strptime(row[i], '%Y-%m-%dT%H:%M:%S').replace(tzinfo=pytz.UTC)
-                # Get current UTC datetime with timezone awareness
-                current_datetime = datetime.datetime.now(pytz.UTC)
-                minutes=divmod((current_datetime-data[f]).total_seconds(),60)
-                data[f]=f"{row[i]} ({int(minutes[0])} min {int(minutes[1])} sec ago)"
+          
 
         df = pd.DataFrame([data], columns=col)
         st.session_state.rows=st.session_state.rows+1
@@ -60,3 +54,4 @@ with st.empty():
     query.delete()
 
 st.write(f"Only the recent {MAX_ROW*10} rows are shown. You can refresh the page to view the latest events.")
+
