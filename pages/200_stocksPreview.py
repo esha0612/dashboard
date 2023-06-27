@@ -15,7 +15,7 @@ with col_txt:
 with col_link:
     st.markdown("[Source Code](https://github.com/esha0612/dashboard/edit/203dashboard/pages/200_stocksPreview.py)", unsafe_allow_html=True)
     
-env = Environment().address(st.secrets["pkc-ymrq7.us-east-2.aws.confluent.cloud:9092"]).apikey(st.secrets["5xdHysaYvVP2y69ad6AQ2ViIgIQtuarD7n-ONpTcOZ6jKE1A9LPbIjQOtoO2"]).workspace(st.secrets["st3o6qm2"])    
+env = Environment().address(st.secrets["TIMEPLUS_HOST"]).apikey(st.secrets["TIMEPLUS_API_KEY"]).workspace(st.secrets["TIMEPLUS_TENANT"])    
 
 MAX_ROW=10
 st.session_state.rows=0
