@@ -17,7 +17,7 @@ with col_link:
     st.markdown("[Source Code](https://github.com/esha0612/dashboard/edit/203dashboard/pages/200_stocksPreview.py)", unsafe_allow_html=True)
 
 tab2, tab1 = st.tabs(["Realtime Data", "Event Count + Insights"])
-env = Environment().address("https://us.timeplus.cloud").apikey("aV9q9Fz6uMhBK9TaGoh9iFdvowFnlVa3gavnoK8vEiSvKS1kHTo4YkxMDc2G").workspace("st3o6qm2")    
+env = Environment().address(st.secrets["db_address"]).apikey(st.secrets["db_apikey"]).workspace(st.secrets["db_workspace"])    
 def batchQuery(bathSQL):
     q=Query(env=env).sql(query=bathSQL).create()
     header=q.metadata()["result"]["header"]
