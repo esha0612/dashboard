@@ -29,7 +29,6 @@ def batchQuery(bathSQL):
     q.cancel()
     q.delete()
     return header,rows
-
 with tab2:
     #st.header('New repos')
     #show_table_for_query("""SELECT created_at,actor,repo,json_extract_string(payload,'master_branch') AS branch \nFROM github_events WHERE type='CreateEvent'""",'new_repo',3)
@@ -55,7 +54,7 @@ with tab2:
             else:
                 st.session_state[name].add_rows(df)
     # iterate query result
-        limit = MAX_ROW*6-1
+        limit = MAX_ROW*1
         count = 0
         for event in query.result():
             if event.event != "metrics" and event.event != "query":
@@ -72,17 +71,29 @@ with tab2:
 
     st.write(f"Only the recent {MAX_ROW*1} rows are shown. You can refresh the page to view the latest events.")
 with tab1:
-
+    
+    
     st.header('New events every minute')
-    sql="SELECT window_end AS time,count() AS count from tumble(table(stocksEsha),1m) WHERE _tp_time > date_sub(now(), 2h) GROUP BY window_end"
+
+# SQL query
+    sql = "SELECT window_end AS time, symbol, sum(quantity) AS count from tumble(table(stocksEsha),5m) WHERE _tp_time > date_sub(now(), 2h) GROUP BY window_end, symbol ORDER BY 1, 3 DESC"
     st.code(sql, language="sql")
-    result=batchQuery(sql)
+    result = batchQuery(sql)
+
+# Convert the result to a DataFrame
     col = [h["name"] for h in result[0]]
     df = pd.DataFrame(result[1], columns=col)
-    c = alt.Chart(df).mark_line(point=alt.OverlayMarkDef()).encode(x='time:T',y='count:Q',tooltip=['count'],color=alt.value('#D53C97'))
+
+# Create the bar chart using Altair
+    c = alt.Chart(df).mark_bar().encode(
+        x='time:T',
+        y='count:Q',
+        tooltip=['count'],
+        color=alt.value('#D53C97')
+    )
+
+# Display the bar chart
     st.altair_chart(c, use_container_width=True)
-
-
 
 with tab1:
 
@@ -118,4 +129,3 @@ with tab1:
                     break
         query.cancel()
         query.delete()
-
