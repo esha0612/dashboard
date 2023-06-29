@@ -29,6 +29,37 @@ def batchQuery(bathSQL):
     q.cancel()
     q.delete()
     return header,rows
+def show_table_for_query(sql,table_name,row_cnt):
+    st.code(sql, language="sql")
+    query = Query(env=env).sql(query=sql).create()
+    col = [h["name"] for h in query.metadata()["result"]["header"]]
+    def update_table(row,name):
+        data = {}
+        for i, f in enumerate(col):
+            data[f] = row[i]
+            #hack show first column as more friendly datetime diff
+           
+        df = pd.DataFrame([data], columns=col)
+        if name not in st.session_state:
+            st.session_state[name] = st.table(df)
+        else:
+            st.session_state[name].add_rows(df)
+    # iterate query result
+    limit = row_cnt
+    count = 0
+    for event in query.result():
+        if event.event != "metrics" and event.event != "query":
+            for row in json.loads(event.data):
+                update_table(row,table_name)
+                count += 1
+                if count >= limit:
+                    break
+            # break the outer loop too    
+            if count >= limit:
+                break
+    query.cancel()
+    query.delete()
+
 with tab2:
     #st.header('New repos')
     #show_table_for_query("""SELECT created_at,actor,repo,json_extract_string(payload,'master_branch') AS branch \nFROM github_events WHERE type='CreateEvent'""",'new_repo',3)
