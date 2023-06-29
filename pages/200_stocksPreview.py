@@ -94,7 +94,9 @@ with tab1:
 
 # Display the bar chart
     st.altair_chart(c, use_container_width=True)
-
+    st.header("Hot Stocks")
+    sql="SELECT symbol, sum(quantity) AS total_quantity FROM stocksEsha GROUP BY symbol ORDER BY total_quantity DESC LIMIT 10;"
+    show_table_for_query(sql,'star_table',5)
 with tab1:
 
     st.header('Event count')
