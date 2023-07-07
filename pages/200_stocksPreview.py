@@ -16,7 +16,7 @@ with col_txt:
 with col_link:
     st.markdown("[Source Code](https://github.com/esha0612/dashboard/edit/203dashboard/pages/200_stocksPreview.py)", unsafe_allow_html=True)
 
-tab2, tab1 = st.tabs(["Realtime Data", "Event Count + Insights"])
+tab1, tab2 = st.tabs(["Realtime Data", "Event Count + Insights"])
 env = Environment().address(st.secrets["db_address"]).apikey(st.secrets["db_apikey"]).workspace(st.secrets["db_workspace"])    
 def batchQuery(bathSQL):
     q=Query(env=env).sql(query=bathSQL).create()
@@ -60,7 +60,7 @@ def show_table_for_query(sql,table_name,row_cnt):
     query.cancel()
     query.delete()
 
-with tab2:
+with tab1:
     #st.header('New repos')
     #show_table_for_query("""SELECT created_at,actor,repo,json_extract_string(payload,'master_branch') AS branch \nFROM github_events WHERE type='CreateEvent'""",'new_repo',3)
 
@@ -101,7 +101,7 @@ with tab2:
         query.delete()
 
     st.write(f"Only the recent {MAX_ROW*1} rows are shown. You can refresh the page to view the latest events.")
-with tab1:
+with tab2:
     
     
     st.header('New events every minute')
@@ -128,7 +128,7 @@ with tab1:
     st.header("Hot Stocks")
     sql="SELECT symbol, sum(quantity) AS total_quantity FROM stocksEsha GROUP BY symbol ORDER BY total_quantity DESC LIMIT 10;"
     show_table_for_query(sql,'star_table',5)
-with tab1:
+with tab2:
 
     st.header('Event count')
     st.code("SELECT count(*) FROM stocksEsha EMIT periodic 1s", language="sql")
