@@ -107,7 +107,7 @@ with tab2:
     st.header('New events every minute')
 
 # SQL query
-    sql = "SELECT window_end AS time, symbol, sum(quantity) AS count from tumble(table(stocksEsha),5m) WHERE _tp_time > date_sub(now(), 2h) GROUP BY window_end, symbol ORDER BY 1, 3 DESC"
+    sql = "SELECT window_end AS time, symbol, sum(quantity) AS count from tumble(table(stocksEsha),5m) WHERE _tp_time > now() -2h GROUP BY window_end, symbol ORDER BY 1, 3 DESC"
     st.code(sql, language="sql")
     result = batchQuery(sql)
 
